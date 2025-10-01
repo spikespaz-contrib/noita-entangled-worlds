@@ -5,7 +5,7 @@
 #
 # This prevents `rust-bin` from being an input of the package, which would
 # make it less portable.
-{ packageName, sourceRoot }:
+args@{ packageName, ... }:
 final: _prev:
 let
   rust-stable = final.rust-bin.stable.latest.minimal;
@@ -14,7 +14,6 @@ let
     rustc = rust-stable;
   };
 in {
-  ${packageName} = final.callPackage "${../packages}/${packageName}.nix" {
-    inherit sourceRoot rustPlatform;
-  };
+  ${packageName} = final.callPackage "${../packages}/${packageName}.nix"
+    ((removeAttrs args [ "packageName" ]) // { inherit rustPlatform; });
 }
