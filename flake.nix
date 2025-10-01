@@ -27,6 +27,8 @@
       packages = lib.mapAttrs (system: pkgs: {
         default = self.packages.${system}.noita-proxy;
         inherit (pkgs) noita-proxy;
+        noita-proxy-stable =
+          (pkgs.extend self.overlays.noita-proxy-stable).noita-proxy;
       }) pkgsFor;
 
       devShells = lib.mapAttrs

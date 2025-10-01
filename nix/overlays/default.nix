@@ -20,8 +20,14 @@ in {
   # The overlay definition uses `rust-bin` to construct a `rustPlatform`,
   # and `rust-bin` is not provided by this particular overlay.
   # Prefer using `overlays.default`, or composing with `rust-overlay` manually.
+
   noita-proxy = rustPackageOverlay {
     packageName = "noita-proxy";
     sourceRoot = self;
+  };
+
+  noita-proxy-stable = rustPackageOverlay {
+    packageName = "noita-proxy-stable";
+    packageAttr = "noita-proxy";
   };
 }
