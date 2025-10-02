@@ -20,8 +20,13 @@ in {
   # The overlay definition uses `rust-bin` to construct a `rustPlatform`,
   # and `rust-bin` is not provided by this particular overlay.
   # Prefer using `overlays.default`, or composing with `rust-overlay` manually.
+
   noita-proxy = rustPackageOverlay {
     packageName = "noita-proxy";
     sourceRoot = self;
+  };
+
+  ewext = final: prev: {
+    ewext = final.callPackage ../packages/ewext.nix { sourceRoot = self; };
   };
 }

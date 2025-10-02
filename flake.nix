@@ -20,14 +20,14 @@
       pkgsFor = eachSystem (system:
         import nixpkgs {
           localSystem = system;
-          overlays = [ self.overlays.default ];
+          overlays = [ self.overlays.default self.overlays.ewext ];
         });
     in {
       overlays = import ./nix/overlays { inherit self lib rust-overlay; };
 
       packages = lib.mapAttrs (system: pkgs: {
         default = self.packages.${system}.noita-proxy;
-        inherit (pkgs) noita-proxy;
+        inherit (pkgs) noita-proxy ewext;
       }) pkgsFor;
 
       devShells = lib.mapAttrs
